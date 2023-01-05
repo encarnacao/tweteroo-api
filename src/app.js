@@ -13,6 +13,11 @@ const userSchema = Joi.object({
     avatar: Joi.string().uri().required(),
 })
 
+const tweetSchema = Joi.object({
+    username: Joi.string().alphanum().min(3).max(30).required(),
+    tweet: Joi.string().min(1).required(),
+});
+
 //Some users and tweets are already added as a mock test
 const users = [
 	{
@@ -56,8 +61,23 @@ server.post("/sign-up",(req,res)=>{
         users.push(user);
         res.status(201).send("Usuário cadastrado com sucesso");
     }
-    console.log(users);
 })
+
+server.post("/tweets",(req,res)=>{
+    const tweet = req.body;
+    const username = tweet.username;
+    if(!users.some((user)=>user.username === username)){
+        res.status(401).send("UNAUTHORIZED");
+        return;
+    }
+    const {error} = tweetSchema.validate(tweet);
+    if(error){
+        res.status(400).send("Todos os campos são obrigatórios");
+    } else{
+        tweets.push(tweet);
+        res.status(201).send("Tweet enviado com sucesso");
+    }
+});
 
 server.listen(5000, () => {
 	console.log("Servidor rodando na porta 5000");
