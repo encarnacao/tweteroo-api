@@ -2,6 +2,8 @@ import express from "express";
 import cors from "cors";
 import Joi from "joi";
 
+const PORT = 5000;
+
 const server = express();
 server.use(cors());
 server.use(express.json());
@@ -79,6 +81,7 @@ server.post("/tweets",(req,res)=>{
     }
 });
 
-server.listen(5000, () => {
-	console.log("Servidor rodando na porta 5000");
+
+server.listen(PORT, () => {
+	console.log(`Servidor rodando na porta ${PORT}`);
 });
