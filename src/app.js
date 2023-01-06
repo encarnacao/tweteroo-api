@@ -51,17 +51,17 @@ server.post("/tweets", (req, res) => {
 	}
 });
 
-function addAvatar(tweets, page = 1) {
+function fetchTweets(tweets, page = 1) {
 	const sliceMin = (page - 1) * 10;
 	const sliceMax = page * 10;
 	const tweetsCopy = [...tweets].reverse();
-	const tweetsWithAvatars = tweetsCopy
+	const fetchedTweets = tweetsCopy
 		.slice(sliceMin, sliceMax)
 		.map((tweet) => {
 			const user = users.find((user) => user.username === tweet.username);
 			return { ...tweet, avatar: user.avatar };
 		});
-	return tweetsWithAvatars;
+	return fetchedTweets;
 }
 
 server.get("/tweets", (req, res) => {
@@ -69,15 +69,15 @@ server.get("/tweets", (req, res) => {
 	if (page < 1) {
 		res.status(400).send("Informe uma página válida!");
 	}
-	const tweetsWithAvatars = addAvatar(tweets, page);
-	res.send(tweetsWithAvatars);
+	const fetchedTweets = fetchTweets(tweets, page);
+	res.send(fetchedTweets);
 });
 
 server.get("/tweets/:username", (req, res) => {
 	const username = req.params.username;
 	const userTweets = tweets.filter((tweet) => tweet.username === username);
-	const tweetsWithAvatars = addAvatar(userTweets);
-	res.send(tweetsWithAvatars);
+	const fetchedTweets = fetchTweets(userTweets);
+	res.send(fetchedTweets);
 });
 
 server.listen(PORT, () => {
