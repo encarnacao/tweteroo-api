@@ -24,10 +24,6 @@ const tweetSchema = Joi.object({
 const users = [];
 const tweets = [];
 
-server.get("/", (req, res) => {
-	res.send("Hello World");
-});
-
 server.post("/sign-up",(req,res)=>{
     const user = req.body;
     const {error} = userSchema.validate(user);
