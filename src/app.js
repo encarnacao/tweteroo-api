@@ -11,12 +11,12 @@ server.use(express.urlencoded({ extended: true }));
 
 //Validation
 const userSchema = Joi.object({
-    username: Joi.string().alphanum().min(3).max(30).required(),
+    username: Joi.string().min(1).required(),
     avatar: Joi.string().uri().required(),
 })
 
 const tweetSchema = Joi.object({
-    username: Joi.string().alphanum().min(3).max(30).required(),
+    username: Joi.string().min(1).required(),
     tweet: Joi.string().min(1).required(),
 });
 
