@@ -94,6 +94,13 @@ server.get("/tweets", (_, res) => {
     res.send(tweetsWithAvatars);
 });
 
+server.get("/tweets/:username",(req,res)=>{
+    const username = req.params.username;
+    const userTweets = tweets.filter((tweet)=>tweet.username === username);
+    const tweetsWithAvatars = addAvatar(userTweets);
+    res.send(tweetsWithAvatars);
+});
+
 server.listen(PORT, () => {
 	console.log(`Servidor rodando na porta ${PORT}`);
 });
