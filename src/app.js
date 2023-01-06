@@ -64,6 +64,9 @@ function addAvatar(tweets, page=1){
 
 server.get("/tweets", (req, res) => {
     const page = req.query.page;
+    if(page<1){
+        res.status(400).send("Informe uma página válida!");
+    }
     const tweetsWithAvatars = addAvatar(tweets, page);
     res.send(tweetsWithAvatars);
 });
