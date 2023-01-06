@@ -21,70 +21,8 @@ const tweetSchema = Joi.object({
 });
 
 //Some users and tweets are already added as a mock test
-const users = [
-	{
-		username: "bobesponja",
-		avatar: "https://super.abril.com.br/wp-content/uploads/2020/09/04-09_gato_SITE.jpg?quality=70&strip=info",
-	},
-	{
-		username: "patolino",
-		avatar: "https://i.pinimg.com/280x280_RS/04/b4/7d/04b47dd2b879ecca2e694e7b310bd2d3.jpg",
-	},
-	{
-		username: "patoDonald",
-		avatar: "http://images2.fanpop.com/images/photos/6000000/Donald-Duck-Icon-donald-duck-6040676-200-200.jpg",
-	},
-];
-const tweets = [
-	{
-		username: "bobesponja",
-		tweet: "1",
-	},
-    {
-        username: "patolino",
-        tweet: "2",
-    },
-    {
-        username: "patoDonald",
-        tweet: "3",
-    },
-    {
-        username: "bobesponja",
-        tweet: "4",
-    },
-    {
-        username: "patolino",
-        tweet: "5",
-    },
-    {
-        username: "patoDonald",
-        tweet: "6",
-    },
-    {
-        username: "bobesponja",
-        tweet: "7",
-    },
-    {
-        username: "patolino",
-        tweet: "8",
-    },
-    {
-        username: "patoDonald",
-        tweet: "9",
-    },
-    {
-        username: "bobesponja",
-        tweet: "10",
-    },
-    {
-        username: "patolino",
-        tweet: "11",
-    },
-    {
-        username: "patoDonald",
-        tweet: "12",
-    },
-];
+const users = [];
+const tweets = [];
 
 server.get("/", (req, res) => {
 	res.send("Hello World");
