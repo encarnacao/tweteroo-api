@@ -56,7 +56,7 @@ server.post("/tweets",(req,res)=>{
     }
 });
 
-function addAvatar(tweets, page){
+function addAvatar(tweets, page=1){
     const sliceMin = (page-1)*10;
     const sliceMax = page*10;
     const tweetsCopy = [...tweets].reverse();
@@ -76,7 +76,7 @@ server.get("/tweets", (req, res) => {
 server.get("/tweets/:username",(req,res)=>{
     const username = req.params.username;
     const userTweets = tweets.filter((tweet)=>tweet.username === username);
-    const tweetsWithAvatars = addAvatar(userTweets,1);
+    const tweetsWithAvatars = addAvatar(userTweets);
     res.send(tweetsWithAvatars);
 });
 
