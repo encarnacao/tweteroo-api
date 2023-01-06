@@ -38,16 +38,52 @@ const users = [
 const tweets = [
 	{
 		username: "bobesponja",
-		tweet: "eu amo o hub",
+		tweet: "1",
 	},
     {
         username: "patolino",
-        tweet: "eu odeio o hub",
+        tweet: "2",
     },
     {
         username: "patoDonald",
-        tweet: "eu não sei o que é o hub",
-    }
+        tweet: "3",
+    },
+    {
+        username: "bobesponja",
+        tweet: "4",
+    },
+    {
+        username: "patolino",
+        tweet: "5",
+    },
+    {
+        username: "patoDonald",
+        tweet: "6",
+    },
+    {
+        username: "bobesponja",
+        tweet: "7",
+    },
+    {
+        username: "patolino",
+        tweet: "8",
+    },
+    {
+        username: "patoDonald",
+        tweet: "9",
+    },
+    {
+        username: "bobesponja",
+        tweet: "10",
+    },
+    {
+        username: "patolino",
+        tweet: "11",
+    },
+    {
+        username: "patoDonald",
+        tweet: "12",
+    },
 ];
 
 server.get("/", (req, res) => {
@@ -81,23 +117,27 @@ server.post("/tweets",(req,res)=>{
     }
 });
 
-function addAvatar(tweets){
-    const tweetsWithAvatars = tweets.slice(-10).map((tweet)=>{
+function addAvatar(tweets, page){
+    const sliceMin = (page-1)*10;
+    const sliceMax = page*10;
+    const tweetsCopy = [...tweets].reverse();
+    const tweetsWithAvatars = tweetsCopy.slice(sliceMin, sliceMax).map((tweet)=>{
         const user = users.find((user)=>user.username === tweet.username);
         return {...tweet, avatar: user.avatar};
     });
     return tweetsWithAvatars
 }
 
-server.get("/tweets", (_, res) => {
-    const tweetsWithAvatars = addAvatar(tweets);
+server.get("/tweets", (req, res) => {
+    const page = req.query.page;
+    const tweetsWithAvatars = addAvatar(tweets, page);
     res.send(tweetsWithAvatars);
 });
 
 server.get("/tweets/:username",(req,res)=>{
     const username = req.params.username;
     const userTweets = tweets.filter((tweet)=>tweet.username === username);
-    const tweetsWithAvatars = addAvatar(userTweets);
+    const tweetsWithAvatars = addAvatar(userTweets,1);
     res.send(tweetsWithAvatars);
 });
 
