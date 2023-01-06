@@ -81,11 +81,16 @@ server.post("/tweets",(req,res)=>{
     }
 });
 
-server.get("/tweets", (_, res) => {
+function addAvatar(tweets){
     const tweetsWithAvatars = tweets.slice(-10).map((tweet)=>{
         const user = users.find((user)=>user.username === tweet.username);
         return {...tweet, avatar: user.avatar};
     });
+    return tweetsWithAvatars
+}
+
+server.get("/tweets", (_, res) => {
+    const tweetsWithAvatars = addAvatar(tweets);
     res.send(tweetsWithAvatars);
 });
 
