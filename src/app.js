@@ -36,12 +36,16 @@ server.post("/sign-up",(req,res)=>{
 })
 
 server.post("/tweets",(req,res)=>{
-    const tweet = req.body;
-    const username = tweet.username;
+    // Just in case: Without Headers
+    // const tweet = req.body;
+    // const username = tweet.username;
+    const tweetText = req.body.tweet;
+    const username = req.headers.user;
     if(!users.some((user)=>user.username === username)){
         res.status(401).send("UNAUTHORIZED");
         return;
     }
+    const tweet = {username, tweet: tweetText};
     const {error} = tweetSchema.validate(tweet);
     if(error){
         res.status(400).send("Todos os campos são obrigatórios");
